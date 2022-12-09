@@ -14,6 +14,7 @@ screen.fill(BG_COLOR)
 def main():
     game = Game(screen)
     board = game.board
+    ai = game.ai
 
     # Main loop
     while True:
@@ -32,6 +33,16 @@ def main():
                     board.mark_square(row, col, game.player)
                     game.draw_fig(row, col)
                     game.next_turn()
+
+        if game.game_mode == 'pve' and game.player == 2:
+            # update screen
+            pygame.display.update()
+
+            # AI move
+            row, col = ai.eval(board)
+            board.mark_square(row, col, ai.player)
+            game.draw_fig(row, col)
+            game.next_turn()
 
         pygame.display.update()
 
