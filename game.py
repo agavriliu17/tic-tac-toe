@@ -8,7 +8,7 @@ class Game:
     def __init__(self, screen):
         self.screen = screen
         self.board = Board()
-        self.ai = AI(0)
+        self.ai = AI()
         self.player = 1
         self.show_lines()
         self.game_mode = 'pve' # pvp or pve
