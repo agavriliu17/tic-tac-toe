@@ -30,9 +30,18 @@ def main():
                 col = pos[0] // SQUARE_SIZE
 
                 if board.is_empty_square(row, col):
-                    board.mark_square(row, col, game.player)
-                    game.draw_fig(row, col)
-                    game.next_turn()
+                    game.make_move(row, col)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    game.game_mode = 'pvp'
+                if event.key == pygame.K_c:
+                    game.game_mode = 'pve'
+                if event.key == pygame.K_r:
+                    game.reset_game()
+                    board = game.board
+                    ai = game.ai
+                
 
         if game.game_mode == 'pve' and game.player == 2:
             # update screen
@@ -40,9 +49,7 @@ def main():
 
             # AI move
             row, col = ai.eval(board)
-            board.mark_square(row, col, ai.player)
-            game.draw_fig(row, col)
-            game.next_turn()
+            game.make_move(row, col)
 
         pygame.display.update()
 

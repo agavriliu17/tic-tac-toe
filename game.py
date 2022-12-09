@@ -11,10 +11,12 @@ class Game:
         self.ai = AI()
         self.player = 1
         self.show_lines()
-        self.game_mode = 'pve' # pvp or pve
+        self.game_mode = 'pve' # pvp or pve, pvai
         self.running = True
 
     def show_lines(self):
+        self.screen.fill(BG_COLOR)
+        
         # Vertical lines
         pygame.draw.line(self.screen, LINE_COLOR, (SQUARE_SIZE, 0), (SQUARE_SIZE, HEIGHT), LINE_WIDTH)
         pygame.draw.line(self.screen, LINE_COLOR, (WIDTH - SQUARE_SIZE, 0), (WIDTH - SQUARE_SIZE, HEIGHT), LINE_WIDTH)
@@ -40,6 +42,15 @@ class Game:
             # Draw O
             center = (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2)
             pygame.draw.circle(self.screen, CIRCLE_COLOR, center, RADIUS, CIRCLE_WIDTH)
+
+
+    def make_move(self, row, col):
+        self.board.mark_square(row, col, self.player)
+        self.draw_fig(row, col)
+        self.next_turn()
+
+    def reset_game(self):
+        self.__init__(self.screen)
 
 
     def run(self):
