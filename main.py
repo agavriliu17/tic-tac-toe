@@ -15,6 +15,17 @@ def main():
     game = Game(screen)
     board = game.board
     ai = game.ai
+    score = [0, 0]
+
+    def update_score():
+        winner = int(board.final_state())
+        score[winner - 1] += 1
+        print("Score: X = {}, O = {}".format(score[0], score[1]))
+        game.running = False
+
+    def quit_game():
+        pygame.quit()
+        sys.exit()
 
     # Main loop
     while True:
@@ -24,11 +35,14 @@ def main():
 
             # Quit game
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                quit_game()
 
             # Keyboard events
             if event.type == pygame.KEYDOWN:
+
+                # Quit game
+                if event.key == pygame.K_q:
+                    quit_game()
 
                 # Change game mode
                 if event.key == pygame.K_g:
@@ -66,10 +80,10 @@ def main():
                     game.make_move(row, col)
 
                     if game.check_win():
-                        game.running = False
+                        update_score()
 
 
-        if game.game_mode == 'pve' and game.player == 2 and game.running:
+        if game.game_mode == PVE and game.player == 2 and game.running:
 
             # update screen
             pygame.display.update()
@@ -79,7 +93,7 @@ def main():
             game.make_move(row, col)
             
             if game.check_win():
-                game.running = False
+                update_score()
 
         pygame.display.update()
 
