@@ -16,7 +16,7 @@ class Game:
 
     def show_lines(self):
         self.screen.fill(BG_COLOR)
-        
+
         # Vertical lines
         pygame.draw.line(self.screen, LINE_COLOR, (SQUARE_SIZE, 0), (SQUARE_SIZE, HEIGHT), LINE_WIDTH)
         pygame.draw.line(self.screen, LINE_COLOR, (WIDTH - SQUARE_SIZE, 0), (WIDTH - SQUARE_SIZE, HEIGHT), LINE_WIDTH)
@@ -52,6 +52,8 @@ class Game:
     def reset_game(self):
         self.__init__(self.screen)
 
+    def check_win(self):
+        return self.board.final_state(show=True, screen=self.screen) != 0 or self.board.is_full()
 
     def run(self):
         pass
