@@ -34,7 +34,7 @@ class Board:
 
     def final_state(self, show = False, screen = None):
         # return 0 if game is not over, 1 if X wins, 2 if O wins, 3 if tie
-        
+
         # vertical wins
         for col in range(COLS):
             if self.squares[0][col] == self.squares[1][col] == self.squares[2][col] != 0:

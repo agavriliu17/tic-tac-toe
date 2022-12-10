@@ -5,13 +5,13 @@ from board import Board
 from constants import *
 
 class Game:
-    def __init__(self, screen):
+    def __init__(self, screen, difficulty = 0, game_mode = PVP):
         self.screen = screen
         self.board = Board()
-        self.ai = AI()
+        self.ai = AI(difficulty)
         self.player = 1
         self.show_lines()
-        self.game_mode = 'pve' # pvp or pve, pvai
+        self.game_mode = game_mode
         self.running = True
 
     def show_lines(self):
@@ -50,10 +50,10 @@ class Game:
         self.next_turn()
 
     def reset_game(self):
-        self.__init__(self.screen)
+        self.__init__(self.screen, self.ai.level, self.game_mode)
 
     def check_win(self):
         return self.board.final_state(show=True, screen=self.screen) != 0 or self.board.is_full()
 
-    def run(self):
-        pass
+    def change_game_mode(self):
+        self.game_mode = PVP if self.game_mode == PVE else PVE

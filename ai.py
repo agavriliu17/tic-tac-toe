@@ -3,9 +3,11 @@ import copy
 
 class AI:
 
-    def __init__(self, level=1, player=2):
+    # level 0: random, level 1: random/minimax alternating, level 2: minimax
+    def __init__(self, level = 0, player = 2):
         self.level = level
         self.player = player
+        self.dumb_switch = True
 
     def random_move(self, board):
         empty_squares = board.get_empty_squares()
@@ -61,13 +63,28 @@ class AI:
             return min_val, best_move # (score, move)
 
     def eval(self, main_board):
+
+        # Random AI
         if self.level == 0:
             # random choice
             eval = 'random'
             move = self.random_move(main_board)
+
+        # Random/Minimax alternating AI
+        elif self.level == 1:
+            if self.dumb_switch:
+                # random choice
+                eval = 'random'
+                move = self.random_move(main_board)
+            else:
+                # minimax choice
+                eval, move = self.minimax(main_board, False)
+            self.dumb_switch = not self.dumb_switch
+
+        # Minimax AI
         else:
-            # minimax choice
             eval, move = self.minimax(main_board, False)
-            pass
+
+        
         print(f'AI has chosen {move} with score {eval}.')
         return move # (row, col)

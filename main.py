@@ -30,24 +30,23 @@ def main():
             # Keyboard events
             if event.type == pygame.KEYDOWN:
 
-                # Player vs Player
-                if event.key == pygame.K_p:
-                    game.game_mode = 'pvp'
+                # Change game mode
+                if event.key == pygame.K_g:
+                    game.change_game_mode()
 
-                # Player vs AI
-                if event.key == pygame.K_c:
-                    game.game_mode = 'pve'
-
-                # Completely random AI
+                # Change difficulty to completely random AI
                 if event.key == pygame.K_0:
+                    print("Changed difficulty to completely random AI")
                     ai.level = 0
 
-                # Random AI with minimax
+                # Change difficulty to random/minimax AI
                 if event.key == pygame.K_1:
+                    print("Changed difficulty to random/minimax AI")
                     ai.level = 1
 
-                # Minimax AI
+                # Change difficulty to minimax AI
                 if event.key == pygame.K_2:
+                    print("Changed difficulty to minimax AI")
                     ai.level = 2
 
                 # Reset game
